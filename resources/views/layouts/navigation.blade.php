@@ -1,4 +1,20 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<header class=" h-[64px] py-2 shadow-lg px-4 md:sticky top-0 bg-gray-800 z-40">
+    <!-- logo -->
+    <a href="#" class="text-white flex items-center space-x-2 group hover:text-white">
+        <div>
+            <img class="h-8 w-8 transition-transform duration-300 group-hover:-rotate-45 " src="{{ asset('storage/img/android-chrome-512x512.png') }}" alt="image"/>
+   
+        </div>
+
+        <div>
+            <span class="text-2xl font-extrabold">{{ config('app.name', 'Minera') }}</span>
+            <span class="text-xs block">Construction Warehouse</span>
+        </div>
+    </a>
+</header>
+
+
+ <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">

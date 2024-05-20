@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Usertype; // Add the Usertype model
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $usertypes = Usertype::all(); // Fetch all user types
+        return view('auth.register', compact('usertypes')); // Pass usertypes to the view
     }
 
     /**
@@ -33,12 +35,14 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'usertype_id' => ['required', 'integer', 'exists:usertypes,id'], // Add validation rule for usertype_id
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'usertype_id' => $request->usertype_id, // Include usertype_id in user creation
         ]);
 
         event(new Registered($user));
