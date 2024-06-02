@@ -14,10 +14,12 @@
                 <thead>
                     <tr>
                         <th class="px-4 py-2">Id</th>
+                        <th class="px-4 py-2">Code</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Type</th>
                         <th class="px-4 py-2">Brand</th>
                         <th class="px-4 py-2">Description</th>
+                        <th class="px-4 py-2">Measurement</th>
                         <th class="px-4 py-2">Quantity</th>
                         <th class="px-4 py-2">Delivered By</th>
                         <th class="px-4 py-2">Price</th>
@@ -45,10 +47,12 @@
             ajax: "{{ route('inventories-list') }}",
             columns: [
                 { data: 'id', name: 'id' },
+                { data: 'inv_code', name: 'inv_code' },
                 { data: 'inv_name', name: 'inv_name' },
                 { data: 'inv_type', name: 'inv_type' },
                 { data: 'inv_brand', name: 'inv_brand' },
                 { data: 'inv_description', name: 'inv_description' },
+                { data: 'inv_measurement', name: 'inv_measurement' },
                 { data: 'inv_quantity', name: 'inv_quantity' },
                 { data: 'inv_delivered_by', name: 'inv_delivered_by' },
                 { data: 'inv_price', name: 'inv_price' },

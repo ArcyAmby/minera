@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Inventory;
+use App\Models\InventoryInfo;
+use App\Models\InventoryLogistic;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -16,22 +18,34 @@ class InventoryController extends Controller
     public function inventoryTable(Request $request)
     {
         if ($request->ajax()) {
-            // Eager load the 'addedBy' relationship
-            $inventory = Inventory::with('addedBy')
-                ->select('id', 'inv_type', 'inv_name', 'inv_brand', 'inv_description', 'inv_quantity', 'inv_delivered_by', 'inv_price', 'inv_added_by', 'created_at')
-                ->get();
+            $inventoryLogistics = InventoryLogistic::with(['info', 'addedBy'])->get();
 
-            return DataTables::of($inventory)
-                ->addColumn('added_by_name', function ($inventory) {
-                    return $inventory->addedBy ? $inventory->addedBy->name : 'N/A'; // Show 'N/A' if no user is found
+            return DataTables::of($inventoryLogistics)
+                ->addColumn('inv_code', function ($logistic) {
+                    return $logistic->info->inv_name;
                 })
-                ->addColumn('action', function ($inventory) {
-                    $editUrl = route('inventories.edit', $inventory->id);
-                    $deleteUrl = route('inventories.destroy', $inventory->id);
+                ->addColumn('inv_type', function ($logistic) {
+                    return $logistic->info->inv_type;
+                })
+                ->addColumn('inv_name', function ($logistic) {
+                    return $logistic->info->inv_name;
+                })
+                ->addColumn('inv_brand', function ($logistic) {
+                    return $logistic->info->inv_brand;
+                })
+                ->addColumn('inv_description', function ($logistic) {
+                    return $logistic->info->inv_description;
+                })
+                ->addColumn('added_by_name', function ($logistic) {
+                    return $logistic->addedBy ? $logistic->addedBy->name : 'N/A';
+                })
+                ->addColumn('action', function ($logistic) {
+                    $editUrl = route('inventories.edit', $logistic->id);
+                    $deleteUrl = route('inventories.destroy', $logistic->id);
 
-                    return '<a href="' . $editUrl . '" class="btn btn-primary">Edit</a> 
+                    return '<a href="' . $editUrl . '" class="btn btn-primary">Edit</a>
                             <form method="POST" action="' . $deleteUrl . '" style="display:inline;">
-                                '. csrf_field() . method_field("DELETE") .'
+                                ' . csrf_field() . method_field("DELETE") . '
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>';
                 })
@@ -50,71 +64,82 @@ class InventoryController extends Controller
     {
         $validatedData = $request->validate([
             'inv_type' => 'required|string|max:255',
-            'inv_code' => 'required|string|max:255|unique:inventories,inv_code',
+            'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code',
             'inv_name' => 'required|string|max:255',
             'inv_brand' => 'required|string|max:255',
             'inv_description' => 'required|string',
             'inv_quantity' => 'required|integer',
             'inv_delivered_by' => 'required|string|max:255',
             'inv_price' => 'required|numeric',
+            'inv_measurement' => 'required|string|max:255',
         ]);
 
-        $inventory = Inventory::create([
+        $inventoryInfo = InventoryInfo::firstOrCreate([
             'inv_type' => $validatedData['inv_type'],
-            'inv_code' => $validatedData['inv_code'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],
-            'inv_quantity' => $validatedData['item_quantity'],
-            'inv_delivered_by' => $validatedData['item_delivered_by'],
-            'inv_price' => $validatedData['item_price'],
-            'inv_added_by' => Auth::id(), // Use the currently authenticated user's ID
         ]);
 
-        if ($inventory) {
+        $inventoryLogistic = InventoryLogistic::create([
+            'inv_code' => $validatedData['inv_code'],
+            'inv_quantity' => $validatedData['inv_quantity'],
+            'inv_delivered_by' => $validatedData['inv_delivered_by'],
+            'inv_price' => $validatedData['inv_price'],
+            'inv_measurement' => $validatedData['inv_measurement'],
+            'inv_added_by' => Auth::id(),
+            'inventory_info_id' => $inventoryInfo->id,
+        ]);
+
+        if ($inventoryLogistic) {
             return redirect()->route('inventories.index')->with('success', 'Inventory item created successfully.');
         } else {
             return redirect()->route('inventories.create')->with('error', 'Failed to create inventory item.');
         }
     }
 
-    public function edit(Inventory $inventory)
+    public function edit(InventoryLogistic $inventoryLogistic)
     {
-        return view('inventories.edit', compact('inventory'));
+        $inventoryInfo = $inventoryLogistic->info;
+        return view('inventories.edit', compact('inventoryLogistic', 'inventoryInfo'));
     }
 
-    public function update(Request $request, Inventory $inventory)
+    public function update(Request $request, InventoryLogistic $inventoryLogistic)
     {
         $validatedData = $request->validate([
             'inv_type' => 'required|string|max:255',
-            'inv_code' => 'required|string|max:255|unique:inventories,inv_code,' . $inventory->id,
+            'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code,' . $inventoryLogistic->id,
             'inv_name' => 'required|string|max:255',
             'inv_brand' => 'required|string|max:255',
             'inv_description' => 'required|string',
             'inv_quantity' => 'required|integer',
-            'inv_deivered_by' => 'required|string|max:255',
+            'inv_delivered_by' => 'required|string|max:255',
             'inv_price' => 'required|numeric',
+            'inv_measurement' => 'required|string|max:255',
         ]);
 
-        $inventory->update([
+        $inventoryInfo = $inventoryLogistic->info;
+        $inventoryInfo->update([
             'inv_type' => $validatedData['inv_type'],
-            'inv_code' => $validatedData['inv_code'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],
+        ]);
+
+        $inventoryLogistic->update([
+            'inv_code' => $validatedData['inv_code'],
             'inv_quantity' => $validatedData['inv_quantity'],
             'inv_delivered_by' => $validatedData['inv_delivered_by'],
             'inv_price' => $validatedData['inv_price'],
+            'inv_measurement' => $validatedData['inv_measurement'],
         ]);
 
         return redirect()->route('inventories.index')->with('success', 'Inventory item updated successfully.');
     }
 
-    public function destroy(Inventory $inventory)
+    public function destroy(InventoryLogistic $inventoryLogistic)
     {
-        $inventory->delete();
+        $inventoryLogistic->delete();
         return redirect()->route('inventories.index')->with('success', 'Inventory item deleted successfully.');
     }
-
-
 }

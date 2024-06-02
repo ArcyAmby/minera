@@ -34,15 +34,15 @@ Route::middleware('auth')->group(function () {
 
     // INVENTORY ROUTE
 
-    Route::get('/inventories', [App\Http\Controllers\InventoryController::class, 'index'])->name('inventories.index');
+      Route::get('/inventories', [App\Http\Controllers\InventoryController::class, 'index'])->name('inventories.index');
 
     Route::get('/inventories-list', [App\Http\Controllers\InventoryController::class, 'inventoryTable'])->name('inventories-list');
 
-    Route::get('/inventories/{inventory}/edit', [App\Http\Controllers\InventoryController::class, 'edit'])->name('inventories.edit');
-    
-    Route::put('/inventories/{inventory}/update', [App\Http\Controllers\InventoryController::class, 'update'])->name('inventories.update');
+    Route::get('/inventories/{inventoryLogistic}/edit', [App\Http\Controllers\InventoryController::class, 'edit'])->name('inventories.edit');
 
-    Route::delete('/inventories/{inventory}', [App\Http\Controllers\InventoryController::class, 'destroy'])->name('inventories.destroy');
+    Route::put('/inventories/{inventoryLogistic}/update', [App\Http\Controllers\InventoryController::class, 'update'])->name('inventories.update');
+
+    Route::delete('/inventories/{inventoryLogistic}', [App\Http\Controllers\InventoryController::class, 'destroy'])->name('inventories.destroy');
 
     Route::get('/inventories/store', [App\Http\Controllers\InventoryController::class, 'store'])->name('inventories.store');
 

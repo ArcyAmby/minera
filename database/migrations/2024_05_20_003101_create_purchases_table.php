@@ -25,7 +25,7 @@ class CreatePurchasesTable extends Migration
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('inv_id')->references('id')->on('inventories')->onDelete('cascade');
+            $table->foreign('inv_id')->references('id')->on('inventory_logistics')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade'); // Add foreign key constraint
         });
     }
