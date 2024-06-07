@@ -5,7 +5,7 @@
             <div class="text-white">
                 <div class="mb-8 flex flex-col items-center">
                     <img src="{{ asset('storage/img/android-chrome-512x512.png') }}" width="150" alt="" />
-                    <h1 class="mb-2 text-2xl">Minera</h1>
+                    <h1 class="mb-2 text-2xl">GoldEver</h1>
                     <span class="text-gray-300">Enter Login Details</span>
                 </div>
 

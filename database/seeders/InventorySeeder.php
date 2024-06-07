@@ -3,41 +3,47 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Inventory;
+use App\Models\InventoryInfo;
+use App\Models\InventoryLogistic;
+use App\Models\InventoryType;
 
 class InventorySeeder extends Seeder
 {
     public function run()
     {
-        $inventories = [
-            [
-                'inv_type' => 'Hardware',
-                'inv_code' => 'E0034',
-                'inv_name' => 'Example Item',
-                'inv_brand' => 'Example Brand',
-                'inv_description' => 'Description of the item goes here.',
-                'inv_quantity' => 100,
-                'inv_delivered_by' => 'Supplier Name',
-                'inv_price' => 10.99,
-                'inv_added_by' => 1,
-            ],
-            [
-                'inv_type' => 'Hardware',
-                'inv_code' => 'E2223',
-                'inv_name' => 'Example Item',
-                'inv_brand' => 'Example Brand',
-                'inv_description' => 'Description of the item goes here.',
-                'inv_quantity' => 100,
-                'inv_delivered_by' => 'Supplier Name',
-                'inv_price' => 10.99,
-                'inv_added_by' => 1,
-            ],
-        ];
-
-        foreach ($inventories as $inventory) {
-            Inventory::create($inventory);
-        }
-        // Generate 10 entries for the inventory table
+        // Inventory types are already created in InventoryTypesTableSeeder
         
+        // Fetch all inventory types
+        $types = InventoryType::all();
+        
+        // Loop through each type and create 5 inventory items per type
+        foreach ($types as $type) {
+            for ($i = 1; $i <= 5; $i++) {
+                // Create inventory info record
+                $inventoryInfo = InventoryInfo::create([
+                    'inv_type_id' => $type->id,
+                    'inv_name' => "{$type->type_name} Item {$i}",
+                    'inv_brand' => "Brand {$i}",
+                    'inv_description' => "Description for {$type->type_name} Item {$i}.",
+                ]);
+
+                // Create inventory logistic record
+                InventoryLogistic::create([
+                    'inv_code' => $this->generateUniqueCode($type->type_name, $i),
+                    'inv_measurement' => 'units',
+                    'inv_quantity' => rand(10, 100), // random quantity between 10 and 100
+                    'inv_delivered_by' => 'Supplier Name',
+                    'inv_price' => rand(10, 100) / 10, // random price between 1.0 and 10.0
+                    'inv_added_by' => 1,
+                    'inventory_info_id' => $inventoryInfo->id,
+                ]);
+            }
+        }
+    }
+
+    private function generateUniqueCode($typeName, $index)
+    {
+        // Generate a unique code based on type name and index
+        return substr(strtoupper($typeName), 0, 3) . str_pad($index, 4, '0', STR_PAD_LEFT);
     }
 }

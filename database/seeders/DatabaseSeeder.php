@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
                 UserTypeSeeder::class, // Run the UserTypeSeeder first
                 UserSeeder::class,
                 UserInfoSeeder::class,
+                InventoryTypesTableSeeder::class,
                 InventorySeeder::class
             ]);
     
