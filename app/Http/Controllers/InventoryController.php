@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InventoryInfo;
 use App\Models\InventoryLogistic;
+use App\Models\InventoryType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class InventoryController extends Controller
                     return $logistic->info->inv_name;
                 })
                 ->addColumn('inv_type', function ($logistic) {
-                    return $logistic->info->inv_type;
+                    return $logistic->info->type->type_name;
                 })
                 ->addColumn('inv_name', function ($logistic) {
                     return $logistic->info->inv_name;
@@ -57,13 +58,14 @@ class InventoryController extends Controller
 
     public function store()
     {
-        return view('inventories.store');
+        $types = InventoryType::all();
+        return view('inventories.store', compact('types'));
     }
 
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'inv_type' => 'required|string|max:255',
+            'inv_type_id' => 'required|exists:inventory_types,id',
             'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code',
             'inv_name' => 'required|string|max:255',
             'inv_brand' => 'required|string|max:255',
@@ -75,7 +77,7 @@ class InventoryController extends Controller
         ]);
 
         $inventoryInfo = InventoryInfo::firstOrCreate([
-            'inv_type' => $validatedData['inv_type'],
+            'inv_type_id' => $validatedData['inv_type_id'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],
@@ -101,13 +103,14 @@ class InventoryController extends Controller
     public function edit(InventoryLogistic $inventoryLogistic)
     {
         $inventoryInfo = $inventoryLogistic->info;
-        return view('inventories.edit', compact('inventoryLogistic', 'inventoryInfo'));
+        $types = InventoryType::all();
+        return view('inventories.edit', compact('inventoryLogistic', 'inventoryInfo', 'types'));
     }
 
     public function update(Request $request, InventoryLogistic $inventoryLogistic)
     {
         $validatedData = $request->validate([
-            'inv_type' => 'required|string|max:255',
+            'inv_type_id' => 'required|exists:inventory_types,id',
             'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code,' . $inventoryLogistic->id,
             'inv_name' => 'required|string|max:255',
             'inv_brand' => 'required|string|max:255',
@@ -120,7 +123,7 @@ class InventoryController extends Controller
 
         $inventoryInfo = $inventoryLogistic->info;
         $inventoryInfo->update([
-            'inv_type' => $validatedData['inv_type'],
+            'inv_type_id' => $validatedData['inv_type_id'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],

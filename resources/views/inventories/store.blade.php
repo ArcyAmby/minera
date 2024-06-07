@@ -14,8 +14,12 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="inv_type" class="block text-gray-700 text-sm font-bold mb-2">Inventory Type</label>
-                    <input type="text" class="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="inv_type" name="inv_type" required>
+                    <label for="inv_type_id" class="block text-gray-700 text-sm font-bold mb-2">Inventory Type</label>
+                    <select name="inv_type_id" id="inv_type_id" class="select2 appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-4">
@@ -69,4 +73,18 @@
     </form>
     </div>
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#inv_type_id').select2({
+            placeholder: 'Select inventory type',
+            allowClear: true
+        });
+    });
+</script>
 @endsection
