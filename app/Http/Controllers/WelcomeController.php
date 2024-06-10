@@ -11,7 +11,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $inventoryTypes = InventoryType::all()->groupBy('type_category');
+        $inventoryTypes = InventoryType::with('inventories.logistics')->get()->groupBy('type_category');
         return view('welcome', compact('inventoryTypes'));
     }
 }

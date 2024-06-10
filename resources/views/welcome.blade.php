@@ -1568,7 +1568,7 @@ span.psw {
         </div>
         
         
-        <section class="section1">
+        {{-- <section class="section1">
         <div class="add-card" style="background: linear-gradient(rgba(1,1,1,.5), rgba(1,1,1,.5)), url(https://i.ibb.co/zmnBPpr/card1.jpg);">
         <section>
         <span class="title">New Year Bonanza</span>
@@ -1591,38 +1591,34 @@ span.psw {
         </section>
         </div>
         </section>
+         --}}
         
-        
-        <h1 class="title section2-header">DEALS OF THE DAY <span id="timer"><i class="fa fa-clock-o"></i></span></h1>
+        <h1 class="title section2-header">HARDWARE PRODUCTS <span id="timer"><i class="fa fa-clock-o"></i></span></h1>
         <section class="section2">
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-2"><i class="fa fa-times"></i> Sold Out</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1 soldout">SoldOut</a>
-        </div>
+          
+          @foreach ($inventoryTypes as $category => $types)
+          <h2>{{ $category }}</h2>
+          <div class="inventory-category">
+              @foreach ($types as $type)
+                  @foreach ($type->inventories as $inventory)
+                      @foreach ($inventory->logistics as $logistic)
+                          <div class="deal-card">
+                              <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
+                              <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
+                              <span class="tag-2"><i class="fa fa-times"></i> Sold Out</span>
+                              <span class="title">{{ $inventory->inv_name }}</span>
+                              <span class="sub-title">{{ $inventory->inv_brand }}</span>
+                              <span class="price">{{ $logistic->inv_price }}</span>
+                              <span class="type">{{ $type->type_name }}</span>
+                              <a href="#" class="btn1 soldout">SoldOut</a>
+                          </div>
+                      @endforeach
+                  @endforeach
+              @endforeach
+          </div>
+      @endforeach
         
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        <div class="deal-card">
+        {{-- <div class="deal-card">
         <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
         <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
         <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
@@ -1641,6 +1637,24 @@ span.psw {
         </div>
         
         <div class="deal-card">
+        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
+        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
+        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
+        <span class="title">Samsung Galaxy POP</span>
+        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
+        </div>
+        
+        <div class="deal-card">
+        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
+        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
+        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
+        <span class="title">Samsung Galaxy POP</span>
+        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
+        </div> --}}
+        
+        {{-- <div class="deal-card">
         <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
         <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
         <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
@@ -1790,9 +1804,9 @@ span.psw {
         (930)
         </span>
         <span class="btn2">Fast Sold</span>
-        </div>
+        </div> --}}
         
-        <div class="discount-card">
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/x7mNFvp/05.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Casino Men's Classic</span>
@@ -1806,8 +1820,8 @@ span.psw {
         </span>
         <span class="btn2">Grab Now</span>
         </div>
-        
-        <div class="discount-card">
+         --}}
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/Mgjcss5/03.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Mixer Juice Grinder</span>
@@ -1820,9 +1834,9 @@ span.psw {
         (230)
         </span>
         <span class="btn2">30% Off</span>
-        </div>
+        </div> --}}
         
-        <div class="discount-card">
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/x7mNFvp/05.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Casino Men's Classic</span>
@@ -1835,9 +1849,9 @@ span.psw {
         (2,400)
         </span>
         <span class="btn2">Grab Now</span>
-        </div>
+        </div> --}}
         
-        <div class="discount-card">
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/jGxYmxS/02.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Chimney</span>
@@ -1850,9 +1864,9 @@ span.psw {
         (930)
         </span>
         <span class="btn2">Fast Sold</span>
-        </div>
+        </div> --}}
         
-        <div class="discount-card">
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
@@ -1865,9 +1879,9 @@ span.psw {
         (1,030)
         </span>
         <span class="btn1">New Eve Deal</span>
-        </div>
+        </div> --}}
         
-        <div class="discount-card">
+        {{-- <div class="discount-card">
         <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
         <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
         <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
@@ -1881,7 +1895,7 @@ span.psw {
         </span>
         <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
         </div>
-        </section>
+        </section> --}}
         
         
         
