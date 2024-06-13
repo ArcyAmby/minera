@@ -11,23 +11,20 @@ class InventorySeeder extends Seeder
 {
     public function run()
     {
-        // Inventory types are already created in InventoryTypesTableSeeder
-        
-        // Fetch all inventory types
+
         $types = InventoryType::all();
         
-        // Loop through each type and create 5 inventory items per type
         foreach ($types as $type) {
             for ($i = 1; $i <= 5; $i++) {
-                // Create inventory info record
+
                 $inventoryInfo = InventoryInfo::create([
                     'inv_type_id' => $type->id,
                     'inv_name' => "{$type->type_name} Item {$i}",
                     'inv_brand' => "Brand {$i}",
                     'inv_description' => "Description for {$type->type_name} Item {$i}.",
+                    'inv_image' => 'img/placeholder.png', // Default placeholder image
                 ]);
 
-                // Create inventory logistic record
                 InventoryLogistic::create([
                     'inv_code' => $this->generateUniqueCode($type->type_name, $i),
                     'inv_measurement' => 'units',

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>GoldEver</title>
 
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/img/android-chrome-512x512.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('storage/img/favicon-32x32.png') }}">
@@ -220,6 +220,7 @@ color:#b91c1c;
 .dropdown-content {
   border-top:2px solid #b91c1c;
   display: none;
+  color: #b91c1c;
   position: absolute;
   background-color: #fff;
   min-width: 260px;
@@ -344,7 +345,7 @@ display:inline-block;
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fff;
+  background-color: #;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -801,7 +802,7 @@ color:gray;
 .section2 .deal-card{
 display:inline-block;
 padding:15px;
-height:330px;
+height:auto;
 width:250px;
 position:relative;
 box-shadow:0px 6px 16px -6px rgba(1,1,1,0.5);
@@ -1263,10 +1264,7 @@ span.psw {
 
 /* Modal Content/Box */
 .modal-content {
-  background-image:url("{{ asset('storage/img/ad1.png') }}");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position:center;
+
   margin: 5% auto 5% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width: 80%%;
@@ -1363,35 +1361,63 @@ span.psw {
               <a href="{{ route('login') }}">LogIn/LogOut</a>
             </div>
           </div> 
-          <div class="dropdown">
-            <button class="dropbtn cart"><i class="fa fa-shopping-cart"></i> <span class="value">2</span>
-            </button>
-            <div class="dropdown-content cart-content">
-              <a>
-              <ul>
-              <li>
-              <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Item">
-              </li>
-              <li>
-              <span class="title">Samsung Galaxy POP</span>
-              <span class="sub-title"><i class="fa fa-rupee"></i>5999<span>
-              </li>
-              <li><i class="fa fa-trash"></i></li>
+          {{-- <div class="dropdown">
+          <button class="dropbtn cart"><i class="fa fa-shopping-cart"></i><span class="value ml-2">0</span></button>
+          <div class="dropdown-content cart-content hidden absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md">
+              <ul id="cart-items" class="p-4">
+                  <!-- cart items will be displayed here -->
               </ul>
-              <ul>
-              <li>
-              <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Item">
-              </li>
-              <li>
-              <span class="title">Samsung Galaxy POP</span>
-              <span class="sub-title"><i class="fa fa-rupee"></i>5999<span>
-              </li>
-              <li><i class="fa fa-trash"></i></li>
-              </ul>
-              <button type="submit" class="btn1">CheckOut</button>
-              </a>
+              <div class="flex justify-between items-center p-4 border-t">
+                  <span>Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
+                  <button type="submit" class="btn1 bg-blue-500 text-white p-2 rounded-md">CheckOut</button>
+              </div>
+          </div>
+      </div> --}}
+      <div class="dropdown">
+        <button class="dropbtn flex items-center px-4 py-2 rounded-md">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="value ml-2">0</span>
+        </button>
+        <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
+            <ul id="cart-items" class="p-4 space-y-4">
+                <!-- cart items will be displayed here -->
+                {{-- <li class="flex justify-between">
+                    <span class="text-gray-700">Product Name</span>
+                    <span class="text-gray-700"><i class="fa fa-rupee-sign"></i> Price</span>
+                </li> --}}
+                <!-- Repeat li elements for each item -->
+            </ul>
+            <div class="p-4 border-t">
+                <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
+                <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
             </div>
-          </div> 
+        </div>
+    </div>
+    
+      {{-- <div class="dropdown">
+    <button class="dropbtn flex items-center">
+        <i class="fa fa-shopping-cart"></i><span class="value ml-2">0</span>
+    </button>
+    <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
+        <ul id="cart-items" class="p-4 space-y-4">
+            <!-- cart items will be displayed here -->
+        </ul>
+        <div class="p-4 border-t">
+            <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
+            <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
+        </div>
+    </div>
+</div> --}}
+            {{-- <div class="dropdown">
+              <button class="dropbtn cart"><i class="fa fa-shopping-cart"></i> <span class="value">0</span>
+              </button>
+              <div class="dropdown-content cart-content">
+                <ul id="cart-items">
+                  <!-- cart items will be displayed here -->
+                </ul>
+                <button type="submit" class="btn1">CheckOut</button>
+            </div>
+          </div>  --}}
         </div>
         </span>
         </td>
@@ -1472,35 +1498,20 @@ span.psw {
                 </div>
             </div> 
             
-            <div class="dropdown responsive">
-                <button class="dropbtn"><i class="fa fa-shopping-cart"></i><span class="value">2</span>
-                </button>
-                <div class="dropdown-content">
-                  <a>
-                        <ul>
-                  <li>
-                  <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Item">
-                  </li>
-                  <li>
-                  <span class="title">Samsung Galaxy POP</span>
-                  <span class="sub-title"><i class="fa fa-rupee"></i>5999<span>
-                  </li>
-                  <li><i class="fa fa-trash"></i></li>
+            <div class="dropdown relative">
+              <button class="dropbtn flex items-center">
+                  <i class="fa fa-shopping-cart"></i><span class="value ml-2" id="cart-count">0</span>
+              </button>
+              <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
+                  <ul id="cart-items" class="p-4 space-y-4">
+                      <!-- cart items will be displayed here -->
                   </ul>
-                  <ul>
-                  <li>
-                  <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Item">
-                  </li>
-                  <li>
-                  <span class="title">BOYSEN MEGA SALE!</span>
-                  <span class="sub-title"><i class="fa fa-rupee"></i>5999<span>
-                  </li>
-                  <li><i class="fa fa-trash"></i></li>
-                  </ul>
-                  <button type="submit" class="btn1">CheckOut</button>
-                  </a>
-                </div>
-            </div> 
+                  <div class="p-4 border-t">
+                      <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
+                      <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
+                  </div>
+              </div>
+          </div>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
         </header>
@@ -1603,20 +1614,23 @@ span.psw {
                   @foreach ($type->inventories as $inventory)
                       @foreach ($inventory->logistics as $logistic)
                           <div class="deal-card">
-                              <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-                              <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-                              <span class="tag-2"><i class="fa fa-times"></i> Sold Out</span>
+                              <img src="{{ asset('storage/' . $inventory->inv_image) }}" alt="{{ $inventory->inv_name }}">
                               <span class="title">{{ $inventory->inv_name }}</span>
                               <span class="sub-title">{{ $inventory->inv_brand }}</span>
                               <span class="price">{{ $logistic->inv_price }}</span>
-                              <span class="type">{{ $type->type_name }}</span>
-                              <a href="#" class="btn1 soldout">SoldOut</a>
+                              <span class="sub-title">{{ $inventory->inv_description }}</span>
+                              <span class="sub-title">Quantity: {{ $logistic->inv_quantity }}</span>
+                              <button class="add-to-cart text-amber-600 p-4 text-sm font-weight-bold rounded-full shadow-md" data-inventory-id="{{ $inventory->id }}">
+                                Add to Cart
+                            </button>
+                      
                           </div>
                       @endforeach
                   @endforeach
               @endforeach
           </div>
       @endforeach
+      
         
         {{-- <div class="deal-card">
         <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
@@ -1920,9 +1934,7 @@ span.psw {
         <img src="https://i.ibb.co/sjTCyXj/app.png" alt="APP">
         </td>
         <td>
-        <span class="title">Download INFERNO App Now</span>
-        <span class="sub-title">Fast, Simple & Delightful. All it takes is 15 seconds to Download.</span>
-        <a href="#" class="btn1"><i class="fa fa-android"></i> DOWNLOAD</a>
+        <span class="title">GoldEver Hardware Store</span>
         </td>
         </tr>
         </table>
@@ -2011,15 +2023,105 @@ span.psw {
         -->
           
           
-          
+     
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        
           
         
-         <div class="credits">
-          <a href="https://w3schools.com">W3SCHOOLS</a>, <a href="https://unsplash.com">UNSPLASH</a>, <a href="https://i.ibb.co">IMGBB</a>, <a href="https://canva.com">CANVA</a>
-          </div> 
+
+          <script> $(document).ready(function() {
 
 
-          <script>
+          let itemCount = 0; // Initialize item count
+
+          function updateCartCount(count) {
+              itemCount = count;
+              document.getElementById('cart-count').innerText = itemCount;
+          }
+
+            var cartItems = [];
+            var inventories = @json($inventories);
+            var logistics = @json($logistic); // Assuming logistics is an object with item prices
+        
+            $(document).on('click', '.add-to-cart', function() {
+                var inventoryId = $(this).data('inventory-id');
+                var inventory = inventories.find(function(inventory) {
+                    return inventory.id === inventoryId;
+                });
+        
+                if (inventory) {
+                    var existingItem = cartItems.find(function(item) {
+                        return item.id === inventoryId;
+                    });
+        
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        inventory.quantity = 1;
+                        cartItems.push(inventory);
+                    }
+        
+                    updateCart();
+                }
+            });
+        
+            $(document).on('click', '.remove-from-cart', function() {
+                var inventoryId = $(this).data('inventory-id');
+                var item = cartItems.find(function(inventory) {
+                    return inventory.id === inventoryId;
+                });
+        
+                if (item) {
+                    item.quantity -= 1;
+                    if (item.quantity === 0) {
+                        cartItems = cartItems.filter(function(inventory) {
+                            return inventory.id !== inventoryId;
+                        });
+                    }
+                }
+        
+                updateCart();
+            });
+        
+            function updateCart() {
+                $('#cart-items').html('');
+                var totalPrice = 0;
+        
+                cartItems.forEach(function(inventory) {
+                    var html = `
+                        <li class="flex justify-between mb-4 border-b pb-4">
+                            <div class="flex items-center mb-2">                                
+                              <div>
+                                    <span class="block font-semibold">${inventory.inv_name}</span>
+                                    <span class="block text-gray-600">Price: <i class="fa fa-rupee-sign"></i>${logistics.inv_price}</span>
+                                    <span class="block text-gray-600">Quantity: ${logistics.quantity}</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="remove-from-cart bg-red-500 text-white p-1 rounded-md" data-inventory-id="${inventory.id}"><i class="fa fa-minus"></i></button>
+                                <button class="add-to-cart bg-green-500 text-white p-1 rounded-md" data-inventory-id="${inventory.id}"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </li>
+                    `;
+        
+                    $('#cart-items').append(html);
+                    totalPrice += logistics.inv_price * inventory.quantity;
+                });
+        
+                $('#total-price').text(totalPrice);
+                $('.value').text(cartItems.length);
+        
+                // Toggle dropdown content visibility
+                if (cartItems.length > 0) {
+                    $('.cart-content').removeClass('hidden');
+                } else {
+                    $('.cart-content').addClass('hidden');
+                }
+            }
+        });
+        
+
+
             //DEFAULT
 document.getElementById('id01').style.display='block';
 
