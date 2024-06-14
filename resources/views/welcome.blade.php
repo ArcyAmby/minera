@@ -1263,7 +1263,7 @@ span.psw {
 
 /* Modal Content/Box */
 .modal-content {
-  background-image:url("{{ asset('storage/img/ad1.png') }}");
+  background-image:url("{{ asset('storage/img/ad1.jpg') }}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position:center;
@@ -1513,7 +1513,7 @@ span.psw {
             <div class="slideshow-items">
               <div class="item">
                 <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-1.png') }}" />
+                  <img class="item-image" src="{{ asset('storage/img/carousel-1.jpg') }}" />
                 </div>
                 <!-- Staggered Header Elements -->
                 <div class="item-header">
@@ -1528,7 +1528,7 @@ span.psw {
               </div>
               <div class="item">
                 <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-2.png') }}" />
+                  <img class="item-image" src="{{ asset('storage/img/carousel-2.jpg') }}" />
                 </div>
                 <!-- Staggered Header Elements -->
                 <div class="item-header">
@@ -1543,7 +1543,7 @@ span.psw {
               </div>
               <div class="item">
                 <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-3.png') }}" />
+                  <img class="item-image" src="{{ asset('storage/img/carousel-3.jpg') }}" />
                 </div>
                 <!-- Staggered Header Elements -->
                 <div class="item-header">
