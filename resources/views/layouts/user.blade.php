@@ -66,8 +66,10 @@ font-family: 'Titillium Web', sans-serif;
 
 /* Ensure li elements are stacked vertically */
 #cart-items li {
-    display: block !important;
+    display: flex; /* Changed to flex for alignment */
+    justify-content: space-between; /* Space between content */
     margin-bottom: 1rem !important; /* Optional, for spacing between items */
+    align-items: center; /* Vertically center the items */
 }
 
 .btn1{
@@ -1369,10 +1371,15 @@ span.psw {
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-              <a href="{{ route('login') }}">Profile</a>
-              <a href="{{ route('login') }}">Orders</a>
-              <a href="{{ route('login') }}">Wishlist</a>
-              <a href="{{ route('login') }}">LogIn/LogOut</a>
+                <a href="{{ route('user-profile.index') }}">Profile</a>
+              <a href="">Orders</a>
+              <a href="">Wishlist</a>
+              <form method="POST" action="{{ route('logout') }}"> 
+                @csrf
+                <a :href="route('logout')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem" tabindex="-1" id="user-menu-item-1" onclick="event.preventDefault();
+                    this.closest('form').submit();">{{ __('Log Out') }}</a>
+            </form>
             </div>
           </div> 
           {{-- <div class="dropdown">
@@ -1392,7 +1399,7 @@ span.psw {
             <i class="fa fa-shopping-cart"></i>
             <span class="value ml-2">0</span>
         </button>
-        <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
+        <div class="dropdown-content cart-content right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
             <ul id="cart-items" class="p-4 space-y-4">
                 <!-- cart items will be displayed here -->
                 {{-- <li class="flex justify-between">
@@ -1403,7 +1410,7 @@ span.psw {
             </ul>
             <div class="p-4 border-t">
                 <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
-                <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
+                <button type="submit"  id="checkout-btn" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
             </div>
         </div>
     </div>
@@ -1505,7 +1512,7 @@ span.psw {
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">Profile</a>
+                  <a href="{{ route('user-profile.index') }}">Profile</a>
                   <a href="#">Orders</a>
                   <a href="#">Wishlist</a>
                   <a href="#">Login</a>
@@ -1531,432 +1538,13 @@ span.psw {
         </header>
         
         
-        {{-- <!--CAROUSEL-->
-        <div class="content-width">
-          <div class="slideshow">
-            <!-- Slideshow Items -->
-            <div class="slideshow-items">
-              <div class="item">
-                <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-1.png') }}" />
-                </div>
-                <!-- Staggered Header Elements -->
-                <div class="item-header">
-                  <span class="vertical-part"><b>June Striking Deals</b></span>
-                </div>
-                <!-- Staggered Description Elements -->
-                <div class="item-description">
-                  <span class="vertical-part desc">
-                    <b>Offers you cannot miss! upto 80% off</b>
-                  </span>  
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-2.png') }}" />
-                </div>
-                <!-- Staggered Header Elements -->
-                <div class="item-header">
-                  <span class="vertical-part"><b> <em></em></b></span>
-                </div>
-                <!-- Staggered Description Elements -->
-                <div class="item-description">
-                  <span class="vertical-part desc">
-                  
-                  </span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="item-image-container">
-                  <img class="item-image" src="{{ asset('storage/img/carousel-3.png') }}" />
-                </div>
-                <!-- Staggered Header Elements -->
-                <div class="item-header">
-                  <span class="vertical-part" style="color:#fff;"><b>ShopNow On <em>GoldEVer</em></b></span>
-                </div>
-                <!-- Staggered Description Elements -->
-                <div class="item-description">
-                  <span class="vertical-part desc" style="color:#fff;">
-                    <b>Great Deals and Values within our community</b>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="controls">
-              <ul>
-                <li class="control" data-index="0"></li>
-                <li class="control" data-index="1"></li>
-                <li class="control" data-index="2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-         --}}
-        
-        {{-- <section class="section1">
-        <div class="add-card" style="background: linear-gradient(rgba(1,1,1,.5), rgba(1,1,1,.5)), url(https://i.ibb.co/zmnBPpr/card1.jpg);">
-        <section>
-        <span class="title">New Year Bonanza</span>
-        <span class="sub-title">Upto 25% Off On Washing Machines</span>
-        <a href="" class="btn1">Grab Now</a>
-        </section>
-        </div>
-        <div class="add-card" style="background: linear-gradient(rgba(1,1,1,.5), rgba(1,1,1,.5)), url(https://i.ibb.co/rH35598/card2.jpg);">
-        <section>
-        <span class="title">New Year Bonanza</span>
-        <span class="sub-title">Upto 25% Off On Washing Machines</span>
-        <a href="" class="btn1">Grab Now</a>
-        </section>
-        </div>
-        <div class="add-card" style="background: linear-gradient(rgba(1,1,1,.5), rgba(1,1,1,.5)), url(https://i.ibb.co/b1pfh8c/card3.jpg);">
-        <section>
-        <span class="title">New Year Bonanza</span>
-        <span class="sub-title">Upto 25% Off On Washing Machines</span>
-        <a href="" class="btn1">Grab Now</a>
-        </section>
-        </div>
-        </section>
-         --}}
-        
-        <h1 class="title section2-header">HARDWARE PRODUCTS <span id="timer"><i class="fa fa-clock-o"></i></span></h1>
-        <section class="section2">
-          
-          <div class="inventory-all">
-            @foreach ($inventoryTypes as $types)
-                @foreach ($types as $type)
-                    @foreach ($type->inventories as $inventory)
-                        @foreach ($inventory->logistics as $logistic)
-                            <div class="deal-card">
-                                <img src="{{ asset('storage/' . $inventory->inv_image) }}" alt="{{ $inventory->inv_name }}">
-                                <span class="title">{{ $inventory->inv_name }}</span>
-                                <span class="sub-title">{{ $inventory->inv_brand }}</span>
-                                <span class="price">{{ $logistic->inv_price }}</span>
-                                <span class="sub-title">{{ $inventory->inv_description }}</span>
-                                <span class="sub-title">Quantity: {{ $logistic->inv_quantity }}</span>
-                                <button class="add-to-cart text-amber-600 p-4 text-sm font-weight-bold rounded-full shadow-md" data-inventory-id="{{ $inventory->id }}">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        @endforeach
-                    @endforeach
-                @endforeach
-            @endforeach
-        </div>
+        <!--CAROUSEL-->
+        <main>
+            @yield('content')
+        </main>
         
         
-      
-        
-        {{-- <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div> --}}
-        
-        {{-- <div class="deal-card">
-        <img src="https://i.ibb.co/b1pfh8c/card3.jpg" alt="Deals">
-        <span class="discount"><i class="fa fa-percentage"></i> 20% OFF</span>
-        <span class="tag-1"><i class="fa fa-check-circle-o"></i> Available</span>
-        <span class="title">Samsung Galaxy POP</span>
-        <span class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        <a href="#" class="btn1"><i class="fa fa-rupee"></i> 5999</a>
-        </div>
-        
-        
-        <div class="deal-card advertise-card">
-        
-        </div>
-        </section>
-        
-        
-        <div class="section3-header">
-        <span class="title">BASED ON YOUR INTEREST</span>
-        <a href="#" class="btn1 viewmore">View More</a>
-        <button class="next" onclick='scrollright()'><i class="fa fa-angle-right"></i></button>
-        <button class="previous" onclick='scrollleft()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <section class="section3" id="section3">
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        
-        <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        </section>
-          
-          
-        <div class="section4-header">
-        <span class="title">DISCOUNT CORNER</span>
-        <a href="#" class="btn1 viewmore">View More</a>
-        <button class="next" onclick='scrollright4()'><i class="fa fa-angle-right"></i></button>
-        <button class="previous" onclick='scrollleft4()'><i class="fa fa-angle-left"></i></button>
-        </div>
-        <section class="section4" id="section4">
-        <div class="discount-card">
-        <img src="https://i.ibb.co/jGxYmxS/02.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Chimney</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (930)
-        </span>
-        <span class="btn2">Fast Sold</span>
-        </div> --}}
-        
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/x7mNFvp/05.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Casino Men's Classic</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        (2,400)
-        </span>
-        <span class="btn2">Grab Now</span>
-        </div>
-         --}}
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/Mgjcss5/03.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Mixer Juice Grinder</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (230)
-        </span>
-        <span class="btn2">30% Off</span>
-        </div> --}}
-        
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/x7mNFvp/05.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Casino Men's Classic</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        (2,400)
-        </span>
-        <span class="btn2">Grab Now</span>
-        </div> --}}
-        
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/jGxYmxS/02.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Chimney</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (930)
-        </span>
-        <span class="btn2">Fast Sold</span>
-        </div> --}}
-        
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1">New Eve Deal</span>
-        </div> --}}
-        
-        {{-- <div class="discount-card">
-        <img src="https://i.ibb.co/RpnQq12/01.webp" alt="Product">
-        <a href="#" class="like-button"><i class="fa fa-heart-o"></i></a>
-        <span class="title">Lenovo-na thin laptop with 4gb ram 500gb hard disk</span>
-        <span class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        (1,030)
-        </span>
-        <span class="btn1"><i class="fa fa-rupee"></i>9999</span> <strike><i class="fa fa-rupee"></i>10200</strike>
-        </div>
-        </section> --}}
-        
-        
-        
-        
-        
-        <!--ADDS-->
-        <center>
-        <div class="Advertisement">
-          <img class="myAdds" src="https://i.ibb.co/r5f5GgH/1.png" style="width:100%">
-          <img class="myAdds" src="https://i.ibb.co/bN4XFXp/2.png" style="width:100%">
-          <img class="myAdds" src="https://i.ibb.co/nfpZj9p/3.png" style="width:100%">
-        </div>
-        </center>
-        
-        
-        
-        
-        <section class="section6">
-        <table>
-        <tr>
-        <td>
-        <img src="https://i.ibb.co/sjTCyXj/app.png" alt="APP">
-        </td>
-        <td>
-        <span class="title">GoldEver Hardware Store</span>
-        </td>
-        </tr>
-        </table>
-        </section>
-        
-        
-        
-        <footer>
+ <footer>
         <div class="footer">
         <ul>
         <li>GOLDEVER</li>
@@ -2002,14 +1590,14 @@ span.psw {
         
         
         <!--ADDITIONAL-->
-        {{-- <div id="id01" class="modal">
+        <div id="id01" class="modal">
           
           <section class="modal-content animate" action="/action_page.php" method="post">
             <div class="imgcontainer">
               <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             </div>
             </section>
-        </div> --}}
+        </div>
         
         
         <!--JAVASCRIPT
@@ -2108,23 +1696,20 @@ span.psw {
                     var imageUrl = `{{ asset('storage/${item.inv_image}') }}`;
         
                     var html = `
-    <li class="grid grid-cols-3 gap-4 items-center mb-4 border-b pb-4">
-        <div class="col-span-2">
-            <span class="block font-semibold text-lg text-gray-800">${item.inv_name}</span>
-            <span class="block text-gray-600 text-sm">Price: PHP{logistics.inv_price}</span>
-            <div class="flex items-center mt-2">
-                <span class="block text-gray-600 mr-2">Quantity:</span>
-                <input type="number" class="item-quantity w-16 p-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500" data-inventory-id="${item.id}" value="${item.userQuantity}" min="1">
-            </div>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="${imageUrl}" alt="Product Image" class="w-16 h-16 object-cover rounded-lg shadow-md">
-            <div class="flex mt-2 space-x-2">
-                <button class="remove-from-cart bg-red-500 hover:bg-red-600 text-white p-2 rounded-md shadow-md" data-inventory-id="${item.id}"><i class="fa fa-minus"></i></button>
-                <button class="add-to-cart bg-green-500 hover:bg-green-600 text-white p-2 rounded-md shadow-md" data-inventory-id="${item.id}"><i class="fa fa-plus"></i></button>
-            </div>
-        </div>
-    </li>
+ <li class="mb-4 pb-4 flex items-center justify-between">
+    <div>
+        <span class="block font-semibold text-lg text-gray-800">${item.inv_name}</span>
+        <span class="block text-gray-600 text-sm">Price: PHP ${logistics.inv_price}</span>
+        <span class="block text-gray-600">Quantity:</span>
+        <input type="number" class="item-quantity w-16 p-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500 mt-2" data-inventory-id="${item.id}" value="${item.userQuantity}" min="1">
+    </div>
+    <div class="flex items-center space-x-2">
+        <button class="remove-from-cart bg-red-500 hover:bg-red-600 text-white p-2 rounded-md shadow-md" data-inventory-id="${item.id}"><i class="fa fa-minus"></i></button>
+        <button class="add-to-cart bg-green-500 hover:bg-green-600 text-white p-2 rounded-md shadow-md" data-inventory-id="${item.id}"><i class="fa fa-plus"></i></button>
+    </div>
+</li>
+
+
 `;
 
         

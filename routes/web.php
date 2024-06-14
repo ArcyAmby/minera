@@ -5,19 +5,34 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\UserProfileController;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 // Guest Landing Page Route
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
+// Login Route
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
 
-Route::get('/dashboard', function (){
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// Authenticated Routes
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Dashboard Route
+    Route::get('/dashboard', function () {
+        $user = Auth::user();
+        if ($user->usertype_id == 3) {
+            return redirect()->route('user-dashboard.index');
+        } else {
+            return view('dashboard');
+        }
+    })->name('dashboard');
+
     // Admin Routes
     Route::middleware(['admin'])->group(function () {
         // Profile Routes
@@ -48,10 +63,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/products/fetch', [ProductController::class, 'fetch'])->name('products.products-list');
     });
 
-    // Home Route for Authenticated Users
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    // User Dashboard Route
+    Route::middleware(['user'])->group(function () {
+        Route::get('/user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard.index');
+        Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user-profile.index');
+        Route::put('/user-profile/{user}/update', [UserProfileController::class, 'update'])->name('user-profile.update');
+    });
+
 });
 
+// Home Route for Authenticated Users
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+// Include the auth.php routes file
 require __DIR__.'/auth.php';

@@ -17,11 +17,14 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="font-sans text-gray-900 antialiased h-screen m-0 p-0">
-    <div class="h-full w-full flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900">
 
-        <div class="w-full bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+
+</head>
+
+<body class="font-sans text-gray-900 antialiased h-screen m-0 p-0">
+    <div class="sample h-full w-full flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900">
+
+        <div class="sample2 w-full bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>
