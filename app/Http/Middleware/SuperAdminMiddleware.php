@@ -9,7 +9,7 @@ class SuperAdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->user_type_id === 3) {
+        if (auth()->check() && auth()->user()->usertype_id === 1) {
             return $next($request);
         }
 

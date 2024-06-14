@@ -43,11 +43,14 @@
                         <x-input-label for="usertype_id" :value="__('User Type')" />
                         <select id="usertype_id" name="usertype_id" class="block mt-1 w-full" required>
                             @foreach ($usertypes as $usertype)
-                                <option value="{{ $usertype->id }}">{{ $usertype->name }}</option>
+                                @if ($usertype->id == 3)
+                                    <option value="{{ $usertype->id }}">{{ $usertype->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                         <x-input-error :messages="$errors->get('usertype_id')" class="mt-2" />
                     </div>
+                    
 
                     <div class="flex items-center justify-end mt-4">
                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">

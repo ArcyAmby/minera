@@ -14,6 +14,7 @@ class InventoryInfo extends Model
         'inv_name',
         'inv_brand',
         'inv_description',
+        'inv_image',
     ];
 
     public function logistics()

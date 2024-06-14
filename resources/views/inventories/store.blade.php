@@ -8,6 +8,12 @@
 
             <form action="{{ route('inventories.create') }}" method="POST">
                 @csrf
+
+                <div class="mb-4">
+                    <label for="inv_image" class="block text-gray-700 text-sm font-bold mb-2">Inventory Image</label>
+                    <input type="file" class="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="inv_image" name="inv_image" required>
+                </div>
+                
                 <div class="mb-4">
                     <label for="inv_code" class="block text-gray-700 text-sm font-bold mb-2">Inventory Code</label>
                     <input type="text" class="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="inv_code" name="inv_code" required>

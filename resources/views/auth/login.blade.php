@@ -1,6 +1,14 @@
 <x-guest-layout>
+
+    <style>
+        sample{
+            background-image: url('{{ asset('storage/img/bg.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        </style>
     <!-- component -->
-    <div class="flex h-screen w-full items-center justify-center bg-white bg-cover bg-no-repeat">
+    <div class="sample flex h-screen w-full items-center justify-center">
         <div class="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
             <div class="text-white">
                 <div class="mb-8 flex flex-col items-center">

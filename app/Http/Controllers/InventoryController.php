@@ -40,6 +40,9 @@ class InventoryController extends Controller
                 ->addColumn('added_by_name', function ($logistic) {
                     return $logistic->addedBy ? $logistic->addedBy->name : 'N/A';
                 })
+                ->addColumn('inv_image', function ($logistic) {
+                    return '<img src="' . asset('storage/' . $logistic->info->inv_image) . '" alt="Inventory Image" width="100">';
+                })
                 ->addColumn('action', function ($logistic) {
                     $editUrl = route('inventories.edit', $logistic->id);
                     $deleteUrl = route('inventories.destroy', $logistic->id);
@@ -76,11 +79,14 @@ class InventoryController extends Controller
             'inv_measurement' => 'required|string|max:255',
         ]);
 
+        $imagePath = $request->file('inv_image')->store('images', 'public');
+
         $inventoryInfo = InventoryInfo::firstOrCreate([
             'inv_type_id' => $validatedData['inv_type_id'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],
+            'inv_image' => $imagePath,
         ]);
 
         $inventoryLogistic = InventoryLogistic::create([
@@ -121,12 +127,14 @@ class InventoryController extends Controller
             'inv_measurement' => 'required|string|max:255',
         ]);
 
+        $imagePath = $request->file('inv_image')->store('images', 'public');
         $inventoryInfo = $inventoryLogistic->info;
         $inventoryInfo->update([
             'inv_type_id' => $validatedData['inv_type_id'],
             'inv_name' => $validatedData['inv_name'],
             'inv_brand' => $validatedData['inv_brand'],
             'inv_description' => $validatedData['inv_description'],
+            'inv_image' => $imagePath,
         ]);
 
         $inventoryLogistic->update([

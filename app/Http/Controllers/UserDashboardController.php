@@ -1,16 +1,15 @@
 <?php
 
-// app/Http/Controllers/WelcomeController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\InventoryType;
 use Illuminate\Http\Request;
 
-class WelcomeController extends Controller
+class UserDashboardController extends Controller
 {
-    public function index()
-    {
+    public function index(){
+
+        
         $inventoryTypes = InventoryType::with('inventories.logistics')->get()->groupBy('type_category');
         
         // Flatten the list of inventories
@@ -20,7 +19,6 @@ class WelcomeController extends Controller
                 return $type->inventories;
             });
     
-        return view('welcome', compact('inventoryTypes', 'inventories'));
+        return view('user-dashboard.index', compact('inventoryTypes', 'inventories'));
     }
-    
 }

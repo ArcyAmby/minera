@@ -9,7 +9,7 @@ class UserMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->user_type_id === 2) {
+        if (auth()->check() && auth()->user()->usertype_id === 3) {
             return $next($request);
         }
 
