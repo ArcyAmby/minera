@@ -6,7 +6,7 @@
         <div>
             <h1 class="text-md font-semibold mb-6">Inventory Information</h1>
 
-            <form action="{{ route('inventories.create') }}" method="POST">
+            <form action="{{ route('inventories.create') }}" method="POST" enctype="multipart/form-data" >
                 @csrf
 
                 <div class="mb-4">

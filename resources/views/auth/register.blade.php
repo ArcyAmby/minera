@@ -4,7 +4,7 @@
             <div class="text-gray-900 dark:text-gray-200">
                 <div class="mb-8 flex flex-col items-center">
                     <img src="{{ asset('storage/img/android-chrome-512x512.png') }}" width="150" alt="Logo" />
-                    <h1 class="mb-2 text-2xl">Minera</h1>
+                    <h1 class="mb-2 text-2xl">GoldEver</h1>
                     <span class="text-gray-600 dark:text-gray-300">Register</span>
                 </div>
                 <form method="POST" action="{{ route('register') }}">

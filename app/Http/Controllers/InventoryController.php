@@ -41,7 +41,7 @@ class InventoryController extends Controller
                     return $logistic->addedBy ? $logistic->addedBy->name : 'N/A';
                 })
                 ->addColumn('inv_image', function ($logistic) {
-                    return '<img src="' . asset('storage/' . $logistic->info->inv_image) . '" alt="Inventory Image" width="100">';
+                    return '<img src="' . asset('storage/img/' . $logistic->info->inv_image) . '" alt="Inventory Image" width="100">';
                 })
                 ->addColumn('action', function ($logistic) {
                     $editUrl = route('inventories.edit', $logistic->id);
@@ -66,21 +66,27 @@ class InventoryController extends Controller
     }
 
     public function create(Request $request)
-    {
-        $validatedData = $request->validate([
-            'inv_type_id' => 'required|exists:inventory_types,id',
-            'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code',
-            'inv_name' => 'required|string|max:255',
-            'inv_brand' => 'required|string|max:255',
-            'inv_description' => 'required|string',
-            'inv_quantity' => 'required|integer',
-            'inv_delivered_by' => 'required|string|max:255',
-            'inv_price' => 'required|numeric',
-            'inv_measurement' => 'required|string|max:255',
-        ]);
+{
+    // Validate request data including the image file
+    $validatedData = $request->validate([
+        'inv_type_id' => 'required|exists:inventory_types,id',
+        'inv_code' => 'required|string|max:255|unique:inventory_logistics,inv_code',
+        'inv_name' => 'required|string|max:255',
+        'inv_brand' => 'required|string|max:255',
+        'inv_description' => 'required|string',
+        'inv_quantity' => 'required|integer',
+        'inv_delivered_by' => 'required|string|max:255',
+        'inv_price' => 'required|numeric',
+        'inv_measurement' => 'required|string|max:255',
+        'inv_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // adjust max file size as needed
+    ]);
 
+    // Check if 'inv_image' exists in the request
+    if ($request->hasFile('inv_image')) {
+        // Store the image file
         $imagePath = $request->file('inv_image')->store('images', 'public');
 
+        // Create or update inventory info
         $inventoryInfo = InventoryInfo::firstOrCreate([
             'inv_type_id' => $validatedData['inv_type_id'],
             'inv_name' => $validatedData['inv_name'],
@@ -89,6 +95,7 @@ class InventoryController extends Controller
             'inv_image' => $imagePath,
         ]);
 
+        // Create inventory logistic
         $inventoryLogistic = InventoryLogistic::create([
             'inv_code' => $validatedData['inv_code'],
             'inv_quantity' => $validatedData['inv_quantity'],
@@ -104,7 +111,12 @@ class InventoryController extends Controller
         } else {
             return redirect()->route('inventories.create')->with('error', 'Failed to create inventory item.');
         }
+    } else {
+        // Handle the case where 'inv_image' does not exist
+        return redirect()->route('inventories.create')->with('error', 'Image file is required.');
     }
+}
+
 
     public function edit(InventoryLogistic $inventoryLogistic)
     {

@@ -139,8 +139,10 @@ class UserController extends Controller
     }
 
     public function destroy(User $account)
-    {
-        $account->delete();
-        return redirect()->route('accounts.index')->with('success', 'Account deleted successfully.');
-    }
+{
+    $userinfo = $account->userinfo;
+    $userinfo->delete();
+    $account->delete();
+    return redirect()->route('accounts.index')->with('success', 'Account deleted successfully.');
+}
 }

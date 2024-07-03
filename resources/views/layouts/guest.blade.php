@@ -19,7 +19,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
+
 </head>
+<style>
+    .sample{
+        background-image: url("{{ asset('storage/img/background-img.jpg') }}");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
 
 <body class="font-sans text-gray-900 antialiased h-screen m-0 p-0">
     <div class="sample h-full w-full flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900">

@@ -6,7 +6,7 @@
         <div>
             <h1 class="text-md font-semibold mb-6">User Credentials</h1>
 
-            <form action="{{ route('accounts.store') }}" method="POST">
+            <form action="{{ route('accounts.create') }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -31,8 +31,8 @@
                 <div class="mb-4">
                     <label for="usertype_id" class="block text-gray-700 text-sm font-bold mb-2">User Type</label>
                     <select class="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="usertype_id" name="usertype_id" required>
-                        <option value="1" {{ old('usertype_id') == 1 ? 'selected' : '' }}>Admin</option>
-                        <option value="2" {{ old('usertype_id') == 2 ? 'selected' : '' }}>User</option>
+                        <option value="2" {{ old('usertype_id') == 2 ? 'selected' : '' }}>Admin</option>
+                        <option value="3" {{ old('usertype_id') == 3 ? 'selected' : '' }}>User</option>
                     </select>
                 </div>
 

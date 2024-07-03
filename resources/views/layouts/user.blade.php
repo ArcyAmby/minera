@@ -15,7 +15,10 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <!--FONT AWESOME-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet"> 
@@ -1347,6 +1350,35 @@ span.psw {
   text-decoration:none;
   color:gray;
 }
+
+.product-list {
+            flex: 1;
+            padding: 20px;
+        }
+        .checkout-section {
+            width: 300px;
+            padding: 20px;
+            border-right: 1px solid #ccc;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .cart-item-details {
+            flex: 1;
+            margin-left: 10px;
+        }
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
         </style>
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
@@ -1360,9 +1392,7 @@ span.psw {
                 <img src="{{ asset('storage/img/android-chrome-192x192.png') }}" alt="INFERNO" class="logo mr-2">
                 <span>GOLDEVER</span>
             </td>
-                    <td>
-        <input type="text" class="search" name="search" placeholder="Search"><button type="submit"><i class="fa fa-search"></i></button>
-        </td>
+ 
         <td>
         <span>
         <div class="navbar">
@@ -1382,19 +1412,7 @@ span.psw {
             </form>
             </div>
           </div> 
-          {{-- <div class="dropdown">
-          <button class="dropbtn cart"><i class="fa fa-shopping-cart"></i><span class="value ml-2">0</span></button>
-          <div class="dropdown-content cart-content hidden absolute right-0 mt-2 w-80 bg-white shadow-lg rounded-md">
-              <ul id="cart-items" class="p-4">
-                  <!-- cart items will be displayed here -->
-              </ul>
-              <div class="flex justify-between items-center p-4 border-t">
-                  <span>Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
-                  <button type="submit" class="btn1 bg-blue-500 text-white p-2 rounded-md">CheckOut</button>
-              </div>
-          </div>
-      </div> --}}
-      <div class="dropdown">
+     
         <button class="dropbtn flex items-center px-4 py-2 rounded-md">
             <i class="fa fa-shopping-cart"></i>
             <span class="value ml-2">0</span>
@@ -1414,31 +1432,7 @@ span.psw {
             </div>
         </div>
     </div>
-    
-      {{-- <div class="dropdown">
-    <button class="dropbtn flex items-center">
-        <i class="fa fa-shopping-cart"></i><span class="value ml-2">0</span>
-    </button>
-    <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
-        <ul id="cart-items" class="p-4 space-y-4">
-            <!-- cart items will be displayed here -->
-        </ul>
-        <div class="p-4 border-t">
-            <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
-            <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
-        </div>
-    </div>
-</div> --}}
-            {{-- <div class="dropdown">
-              <button class="dropbtn cart"><i class="fa fa-shopping-cart"></i> <span class="value">0</span>
-              </button>
-              <div class="dropdown-content cart-content">
-                <ul id="cart-items">
-                  <!-- cart items will be displayed here -->
-                </ul>
-                <button type="submit" class="btn1">CheckOut</button>
-            </div>
-          </div>  --}}
+
         </div>
         </span>
         </td>
@@ -1462,7 +1456,6 @@ span.psw {
                                         <h3>{{ $type->type_name }}</h3>
                                         <a href="#">Notifications</a>
                                         <a href="#">Customer Care</a>
-                                        <a href="#">Download App</a>
                                     </div>
                                 @endforeach
                             </div>
@@ -1519,20 +1512,6 @@ span.psw {
                 </div>
             </div> 
             
-            {{-- <div class="dropdown relative">
-              <button class="dropbtn flex items-center">
-                  <i class="fa fa-shopping-cart"></i><span class="value ml-2" id="cart-count">0</span>
-              </button>
-              <div class="dropdown-content cart-content absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md hidden">
-                  <ul id="cart-items" class="p-4 space-y-4">
-                      <!-- cart items will be displayed here -->
-                  </ul>
-                  <div class="p-4 border-t">
-                      <span class="font-bold">Total: <i class="fa fa-rupee-sign"></i><span id="total-price">0</span></span>
-                      <button type="submit" class="btn1 bg-blue-500 text-white w-full mt-4 py-2 rounded-md">CheckOut</button>
-                  </div>
-              </div>
-          </div> --}}
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
         </header>

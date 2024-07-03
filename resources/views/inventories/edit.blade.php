@@ -5,7 +5,7 @@
     <div class="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
 
         <!-- Left Side: Inventory Details -->
-        <form action="{{ route('inventories.update', $inventoryLogistic->id) }}" method="POST">
+        <form action="{{ route('inventories.update', $inventoryLogistic->id) }}" method="POST" enctype="multipart/form-data>
             @csrf
             @method('PUT')
 

@@ -19,7 +19,7 @@
                             <div class="relative">
                                 <div class="relative h-0 rounded-t-lg pb-[100%] w-full bg-white text-ellipsis overflow-hidden"> 
                                     <div class="bg-no-repeat bg-cover inline-block my-0 mx-auto text-center w-full h-full absolute">
-                                        <img src="https://fakeimg.pl/400x400/a5edc0/616161?text=product" alt="" class="rounded-t-lg">
+                                        <img src="{{ Storage::url($inventory->inv_image) }}" alt="" class="rounded-t-lg">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                 <!-- price -->
                                 <div>
                                     <div class="block w-full text-sm font-bold text-amber-700 mt-2">
-                                        $ {{ $logistic->inv_price }}
+                                        PHP {{ $logistic->inv_price }}
                                     </div>
                                 </div>
                                 <!-- end price -->
